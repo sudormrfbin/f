@@ -151,6 +151,15 @@ function __f -d "Open recent files entered on command line"
             return 1
         end
 
+        if set -q _flag_cd
+            # cd into directory of file
+            pushd (string split -rm 1 '/' $target)[1] 2> /dev/null
+            if test $status -gt 0
+                echo "Parent directory of $target does not exist"
+                return 1
+            end
+        end
+
         if set -q _flag_echo
             printf "%s\n" "$target"
             return 0
@@ -166,15 +175,6 @@ function __f -d "Open recent files entered on command line"
             else
                 echo "\$EDITOR not set; cannot open file" > /dev/stderr
                 return 1
-            end
-
-            if set -q _flag_cd
-                # cd into directory of file
-                pushd (string split -rm 1 '/' $target)[1] 2> /dev/null
-                if test $status -gt 0
-                    echo "Parent directory of $target does not exist"
-                    return 1
-                end
             end
 
             __f_add $target
