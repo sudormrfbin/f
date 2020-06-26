@@ -1,0 +1,77 @@
+= F
+
+`f` lets you open files whose names you typed in the commandline some time before.
+If the filename wasn't quoted, then it will be recognized and stored by `f`, which
+you can then use in the future. It's like the famous https://www.github.com/rupa/z[rupa/z]
+plugin and uses the frecency concept, but for files. Similar to it, `f` also needs
+some time to learn the files you access the most and build a database. Usage is
+fairly similar, but with some added niceties.
+
+=====
+Most of the `f` source code has been modified from https://github.com/jethrokuan[@jethrokuan's]
+https://github.com/jethrokuan/z[z] port from bash to pure fish. Many, many thanks to him and
+the original author of `z`, https://github.com/rupa[@rupa].
+=====
+
+== Example Usage
+
+The files are opened by default with `$VISUAL`. If not set, `$EDITOR` will be used. One of
+these variables has to be set. Use `--with` to open the files with another command.
+
+Let's look at some interesting examples:
+
+[source,fish]
+------
+$ f con fish  # open the best matched file that has "con" and "fish" somewhere in it's name
+$ f --pick  # Launch fzf to select a file from all files and open it
+$ f --with less --pick  # Pick a file using fzf and view it using less
+$ f --with rm --pick  # Filenames are simply passed as arguments to the --with command
+$ f --cd --with 'ls -l' --pick  # Pick a file using fzf, cd to it's parent directory and run ls -l on the file
+------
+
+The `--pick`, `--with` and `--cd` flags are the notable ones. Other
+than those, most of the flags of `z` are also implemeted:
+
+-------
+$ f --help
+
+Usage: f [-kdcelprth] [-w cmd] regex1 regex2 ..
+
+        -k --pick      Launch fzf for selection and then open with $EDITOR
+        -w --with cmd  Open the file with command cmd rather than $EDITOR
+        -d --cd        cd to the file directory after selection
+        -c --clean     Remove files that no longer exist from $F_DATA
+        -o --echo      Print match and return
+        -l --list      List matches and scores
+        -p --purge     Delete all entries from $F_DATA
+        -r --rank      Search by rank
+        -t --recent    Search by recency
+        -h --help      Print this help
+-------
+
+== Installation
+
+`f` has been tested only on fish version 3, specifically `3.1.2`. Other versions should work
+as the code is based on the fish port of `z` which works on fish `>=2.7.0`, though it is possible
+that there is some compatibility issue. Please open an issue if you have trouble installing. +
+
+Recommended installation is through https://github.com/jorgebucaran/fisher[fisher]:
+
+ fisher add gokulsoumya/f
+
+== Configuration
+
+`set -U F_CMD "p"`::
+Change command from `f` to `p`.
+
+`set -U F_DATA "$HOME/.foo"`::
+Set data file to `$HOME/.foo` instead of `$XDG_DATA_HOME/f/data`.
+
+`set -U F_EXCLUDE ".*password.*" ".*\.txt"`::
+List of regex patterns to use to exlude files from being added
+to `f` database.
+
+`set -U F_OWNER "username"`::
+Ensure data file is owned by `username`. This prevents usage of `f`
+with `sudo` to cause file to be inaccessible in non-sudo sessions.
+
