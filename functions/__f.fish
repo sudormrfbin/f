@@ -177,6 +177,8 @@ function __f -d "Open recent files entered on command line"
                 end
             end
 
+            __f_add $target
+
             # `$opencmd $target` won't work if $opencmd is quoted; use source instead
             printf '%s ' $opencmd (string escape $target) | source
         end
