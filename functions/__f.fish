@@ -2,7 +2,10 @@ function __f -d "Open recent files entered on command line"
 
     function __print_help
         echo "
-            Usage: $F_CMD [-kdcelprth] [-w cmd] regex1 regex2 ..
+            Usage: $F_CMD [-do] [-r|-t] [-w cmd] [regex1 regex2 ..]
+                   $F_CMD [-do] [-r|-t] [-w cmd] -k
+                   $F_CMD [-r|-t] -l [regex1 regex2 ..]
+                   $F_CMD -c|-p|-h
 
                     -k --pick      Launch fzf for selection and then open with \$EDITOR
                     -w --with cmd  Open the file with command cmd rather than \$EDITOR

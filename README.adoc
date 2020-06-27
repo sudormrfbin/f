@@ -21,7 +21,10 @@ are stored and retrieved as absolute paths.
 -------
 $ f --help
 
-Usage: f [-kdcelprth] [-w cmd] regex1 regex2 ..
+Usage: f [-do] [-r|-t] [-w cmd] [regex1 regex2 ..]
+       f [-do] [-r|-t] [-w cmd] -k
+       f [-r|-t] -l [regex1 regex2 ..]
+       f -c|-p|-h
 
         -k --pick      Launch fzf for selection and then open with $EDITOR
         -w --with cmd  Open the file with command cmd rather than $EDITOR
@@ -33,6 +36,7 @@ Usage: f [-kdcelprth] [-w cmd] regex1 regex2 ..
         -r --rank      Search by rank
         -t --recent    Search by recency
         -h --help      Print this help
+
 -------
 
 === Notable flags
