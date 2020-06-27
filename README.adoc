@@ -95,3 +95,21 @@ to `f` database.
 Ensure data file is owned by `username`. This prevents usage of `f`
 with `sudo` to cause file to be inaccessible in non-sudo sessions.
 
+== FAQ
+
+[qanda]
+
+Backgrounding with `&` is not working with `f --with cmd`::
+ https://github.com/fish-shell/fish-shell/issues/238[Functions cannot be backgrounded in fish],
+ so something like `f --with gedit --pick &` won't work as expected.
+
+Filenames I haven't typed in are showing up in the list::
+ `f` works by scanning the command line and looking for valid filenames
+ after each time a command is executed. If by some chance a file in a
+ directory has the same name as some random token in the commandline, a
+ false positive may be recorded. +
+ Consider that a file called _status_ is present in the directory you're
+ currently in. Now if you execute the `status` command, `f` will record
+ the absolute path of the file _status_ in it's database. If you see this
+ often with a particular file, you can make use of the `F_EXCLUDE`
+ configuration variable.
