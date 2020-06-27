@@ -24,9 +24,15 @@ end
 
 function __f_on_event_postexec --on-event fish_postexec
     set -l paths (__f_extract_paths $argv)
+
     for path in $paths
-        __f_add $path
+        if not contains -- $path $__f_temp_exclude_files
+            __f_add $path
+        end
     end
+
+    set -e __f_temp_exclude_files
+    return 0
 end
 
 # Setup completions once first

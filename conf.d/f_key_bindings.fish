@@ -1,5 +1,8 @@
 function __f_insert_from_picker
-    commandline -i (__f -ko | string escape -n)
+    set -l path (__f -ko)
+    set -ga __f_temp_exclude_files $path
+
+    commandline -i (string escape -n "$path")
     commandline -f repaint
 end
 
