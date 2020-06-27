@@ -1,4 +1,5 @@
 = F
+:experimental:
 
 `f` lets you open files whose names you typed in the commandline some time before.
 If the filename wasn't quoted, then it will be recognized and stored by `f`, which
@@ -7,30 +8,15 @@ plugin and uses the frecency concept, but for files. Similar to it, `f` also nee
 some time to learn the files you access the most and build a database. Usage is
 fairly similar, but with some added niceties.
 
-=====
-Most of the `f` source code has been modified from https://github.com/jethrokuan[@jethrokuan's]
+Most of the `f` source code has been modified from https://github.com/jethrokuan[jethrokuan's]
 https://github.com/jethrokuan/z[z] port from bash to pure fish. Many, many thanks to him and
-the original author of `z`, https://github.com/rupa[@rupa].
-=====
+the original author of `z`, https://github.com/rupa[rupa].
 
 == Example Usage
 
 The files are opened by default with `$VISUAL`. If not set, `$EDITOR` will be used. One of
-these variables has to be set. Use `--with` to open the files with another command.
-
-Let's look at some interesting examples:
-
-[source,fish]
-------
-$ f con fish  # open the best matched file that has "con" and "fish" somewhere in it's name
-$ f --pick  # Launch fzf to select a file from all files and open it
-$ f --with less --pick  # Pick a file using fzf and view it using less
-$ f --with rm --pick  # Filenames are simply passed as arguments to the --with command
-$ f --cd --with 'ls -l' --pick  # Pick a file using fzf, cd to it's parent directory and run ls -l on the file
-------
-
-The `--pick`, `--with` and `--cd` flags are the notable ones. Other
-than those, most of the flags of `z` are also implemeted:
+these variables has to be set. Use `--with` to open the files with another command. All files
+are stored and retrieved as absolute paths.
 
 -------
 $ f --help
@@ -49,11 +35,41 @@ Usage: f [-kdcelprth] [-w cmd] regex1 regex2 ..
         -h --help      Print this help
 -------
 
+=== Notable flags
+
+Let's look at some interesting examples:
+
+[source,fish]
+------
+$ f con fish  # open the best matched file that has "con" and "fish" somewhere in it's name
+$ f --recent  # open the most recently mentioned file
+$ f --pick  # Launch fzf to select a file from all files and open it
+$ f --with less --pick  # Pick a file using fzf and view it using less
+$ f --with rm --pick  # Filenames are simply passed as arguments to the --with command
+$ f --cd --with 'ls -l' --pick  # Pick a file using fzf, cd to it's parent directory and run ls -l on the file
+------
+
+=== Keybindings
+
+The whole reason I wrote this plugin was for this one feature -- insert filenames
+into the command line without hitting tab a thousand times or doing a token search
+with part of the filename. You can do this using the kbd:[Alt+K] keybinding.
+This opens fzf and the filename you choose will be inserted into the commandline.
+
+If kbd:[Alt+K] is already bound to something, it will not be overridden. Instead
+you can bind `__f_insert_from_picker` to any key you wish:
+
+[source,fish]
+-----
+$ bind \eu __f_insert_from_picker  # bind Alt-u
+$ bind -M insert \eu __f_insert_from_picker  # for vim insert mode
+-----
+
 == Installation
 
 `f` has been tested only on fish version 3, specifically `3.1.2`. Other versions should work
 as the code is based on the fish port of `z` which works on fish `>=2.7.0`, though it is possible
-that there is some compatibility issue. Please open an issue if you have trouble installing. +
+that there is some compatibility issue. Please open an issue if you have trouble installing.
 
 Recommended installation is through https://github.com/jorgebucaran/fisher[fisher]:
 
