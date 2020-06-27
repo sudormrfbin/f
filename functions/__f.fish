@@ -160,6 +160,8 @@ function __f -d "Open recent files entered on command line"
             end
         end
 
+        __f_add $target
+
         if set -q _flag_echo
             printf "%s\n" "$target"
             return 0
@@ -176,8 +178,6 @@ function __f -d "Open recent files entered on command line"
                 echo "\$EDITOR not set; cannot open file" > /dev/stderr
                 return 1
             end
-
-            __f_add $target
 
             # `$opencmd $target` won't work if $opencmd is quoted; use source instead
             printf '%s ' $opencmd (string escape $target) | source
