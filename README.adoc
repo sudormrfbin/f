@@ -81,17 +81,18 @@ Recommended installation is through https://github.com/jorgebucaran/fisher[fishe
 
 == Configuration
 
-`set -U F_CMD "p"`::
+* `set -U *F_CMD* "p"` +
 Change command from `f` to `p`.
 
-`set -U F_DATA "$HOME/.foo"`::
+* `set -U *F_DATA* "$HOME/.foo"` +
 Set data file to `$HOME/.foo` instead of `$XDG_DATA_HOME/f/data`.
 
-`set -U F_EXCLUDE ".*password.*" ".*\.txt"`::
+// The backslash is needed only feore the first * here to render correctly
+* `set -U *F_EXCLUDE* ".\*password.*" ".*\.txt"` +
 List of regex patterns to use to exlude files from being added
 to `f` database.
 
-`set -U F_OWNER "username"`::
+* `set -U *F_OWNER* "username"` +
 Ensure data file is owned by `username`. This prevents usage of `f`
 with `sudo` to cause file to be inaccessible in non-sudo sessions.
 
