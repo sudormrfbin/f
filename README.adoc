@@ -22,7 +22,7 @@ Recommended installation is through https://github.com/jorgebucaran/fisher[fishe
 
  fisher add gokulsoumya/f
 
-== Example Usage
+== Usage
 
 The files are opened by default with `$VISUAL`. If not set, `$EDITOR` will be used. One of
 these variables has to be set. Use `--with` to open the files with another command. All files
