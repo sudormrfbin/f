@@ -2,14 +2,15 @@ function __f -d "Open recent files entered on command line"
 
     function __print_help
         echo "
-            Usage: $F_CMD [-do] [-r|-t] [-w cmd] [regex1 regex2 ..]
-                   $F_CMD [-do] [-r|-t] [-w cmd] -k
+            Usage: $F_CMD [-do] [-r|-t] [-w cmd|-a] [regex1 regex2 ..]
+                   $F_CMD [-do] [-r|-t] [-w cmd|-a] -k
                    $F_CMD [-r|-t] -l [regex1 regex2 ..]
                    $F_CMD -c|-p|-h
 
                     -k --pick      Launch fzf for selection and then open with \$EDITOR
                     -w --with cmd  Open the file with command cmd rather than \$EDITOR
                     -d --cd        cd to the file directory after selection
+                    -a --app       Open with default app, using xdg-open or open
                     -c --clean     Remove files that no longer exist from $F_DATA
                     -o --echo      Print match and return
                     -l --list      List matches and scores
@@ -20,7 +21,8 @@ function __f -d "Open recent files entered on command line"
         " | string replace -r '^ {12}' ''  # remove unnecessary indent
     end
 
-    set -l options "h/help" "c/clean" "o/echo" "l/list" "p/purge" "r/rank" "t/recent" "k/pick" "w/with=" "d/cd"
+    set -l options "h/help" "c/clean" "o/echo" "l/list" "p/purge" "r/rank" "t/recent" \
+                   "k/pick" "w/with=" "d/cd" "a/app"
 
     argparse -n $F_CMD $options -- $argv
     or return
@@ -173,6 +175,12 @@ function __f -d "Open recent files entered on command line"
 
             if set -q _flag_with
                 set opencmd $_flag_with
+            else if set -q _flag_app
+                if test (uname) = Darwin
+                    set opencmd open
+                else
+                    set opencmd xdg-open
+                end
             else if set -q VISUAL
                 set opencmd $VISUAL
             else if set -q EDITOR

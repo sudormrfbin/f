@@ -7,6 +7,7 @@ function __f_complete -d "add completions"
     complete -c $F_CMD -s k -l pick   -d "Pick a file using fzf"
     complete -c $F_CMD -s w -l with   -d "Open file using alternate command" -xa '(__fish_complete_command)'
     complete -c $F_CMD -s d -l cd     -d "cd into file's parent dir first"
+    complete -c $F_CMD -s a -l app    -d "Open with default app"
     complete -c $F_CMD -s c -l clean  -d "Clean out $F_DATA"
     complete -c $F_CMD -s e -l echo   -d "Print best match, do not open"
     complete -c $F_CMD -s l -l list   -d "List matches, do not open"
