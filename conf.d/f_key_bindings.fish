@@ -1,5 +1,5 @@
 function __f_insert_from_picker
-    set -l path (__f -ko)
+    set -l path (__f -ko 2> /dev/null)
     set -ga __f_temp_exclude_files $path
 
     commandline -i (string escape -n "$path")
