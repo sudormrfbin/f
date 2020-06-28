@@ -12,6 +12,16 @@ Most of the `f` source code has been modified from https://github.com/jethrokuan
 https://github.com/jethrokuan/z[z] port from bash to pure fish. Many, many thanks to him and
 the original author of `z`, https://github.com/rupa[rupa].
 
+== Installation
+
+`f` has been tested only on fish version 3, specifically `3.1.2`. Other versions should work
+as the code is based on the fish port of `z` which works on fish `>=2.7.0`, though it is possible
+that there is some compatibility issue. Please open an issue if you have trouble installing.
+
+Recommended installation is through https://github.com/jorgebucaran/fisher[fisher]:
+
+ fisher add gokulsoumya/f
+
 == Example Usage
 
 The files are opened by default with `$VISUAL`. If not set, `$EDITOR` will be used. One of
@@ -68,16 +78,6 @@ you can bind `__f_insert_from_picker` to any key you wish:
 $ bind \eu __f_insert_from_picker  # bind Alt-u
 $ bind -M insert \eu __f_insert_from_picker  # for vim insert mode
 -----
-
-== Installation
-
-`f` has been tested only on fish version 3, specifically `3.1.2`. Other versions should work
-as the code is based on the fish port of `z` which works on fish `>=2.7.0`, though it is possible
-that there is some compatibility issue. Please open an issue if you have trouble installing.
-
-Recommended installation is through https://github.com/jorgebucaran/fisher[fisher]:
-
- fisher add gokulsoumya/f
 
 == Configuration
 
