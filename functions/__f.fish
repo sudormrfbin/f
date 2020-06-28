@@ -2,8 +2,8 @@ function __f -d "Open recent files entered on command line"
 
     function __print_help
         echo "
-            Usage: $F_CMD [-do] [-r|-t] [-w cmd|-a] [regex1 regex2 ..]
-                   $F_CMD [-do] [-r|-t] [-w cmd|-a] -k
+            Usage: $F_CMD [-d] [-r|-t] [-w cmd|-a|-o] [regex1 regex2 ..]
+                   $F_CMD [-d] [-r|-t] [-w cmd|-a|-o] -k
                    $F_CMD [-r|-t] -l [regex1 regex2 ..]
                    $F_CMD -c|-p|-h
 
@@ -24,7 +24,9 @@ function __f -d "Open recent files entered on command line"
     set -l options "h/help" "c/clean" "o/echo" "l/list" "p/purge" "r/rank" "t/recent" \
                    "k/pick" "w/with=" "d/cd" "a/app"
 
-    argparse -n $F_CMD $options -- $argv
+    argparse -n $F_CMD \
+       -x "a,w,o,l" -x "r,t" -x "p,c" -x "l,k" -x "l,d" \
+       $options -- $argv
     or return
 
     if set -q _flag_help
