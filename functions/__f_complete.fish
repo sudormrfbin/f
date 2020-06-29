@@ -5,6 +5,7 @@ function __f_complete -d "add completions"
     complete -fc $F_CMD -a "$__f_marks"
 
     complete -c $F_CMD -s k -l pick   -d "Pick a file using fzf"
+    complete -c $F_CMD -s K -l picker -d "Set picker program" -xa '(__fish_complete_command)'
     complete -c $F_CMD -s w -l with   -d "Open file using alternate command" -xa '(__fish_complete_command)'
     complete -c $F_CMD -s d -l cd     -d "cd into file's parent dir first"
     complete -c $F_CMD -s a -l app    -d "Open with default app"

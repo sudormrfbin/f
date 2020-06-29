@@ -3,29 +3,30 @@ function __f -d "Open recent files entered on command line"
     function __print_help
         echo "
             Usage: $F_CMD [-d] [-r|-t] [-w cmd|-a|-o] [regex1 regex2 ..]
-                   $F_CMD [-d] [-r|-t] [-w cmd|-a|-o] -k
+                   $F_CMD [-d] [-r|-t] [-w cmd|-a|-o] [-K cmd] -k
                    $F_CMD [-r|-t] -l [regex1 regex2 ..]
                    $F_CMD -c|-p|-h
 
-                    -k --pick      Launch fzf for selection and then open with \$EDITOR
-                    -w --with cmd  Open the file with command cmd rather than \$EDITOR
-                    -d --cd        cd to the file directory after selection
-                    -a --app       Open with default app, using xdg-open or open
-                    -c --clean     Remove files that no longer exist from $F_DATA
-                    -o --echo      Print match and return
-                    -l --list      List matches and scores
-                    -p --purge     Delete all entries from $F_DATA
-                    -r --rank      Search by rank
-                    -t --recent    Search by recency
-                    -h --help      Print this help
+                    -k --pick       Launch fzf for selection and then open with \$EDITOR
+                    -K --picker cmd Command to be used as picker; implies -k
+                    -w --with cmd   Open the file with command cmd rather than \$EDITOR
+                    -d --cd         cd to the file directory after selection
+                    -a --app        Open with default app, using xdg-open or open
+                    -c --clean      Remove files that no longer exist from $F_DATA
+                    -o --echo       Print match and return
+                    -l --list       List matches and scores
+                    -p --purge      Delete all entries from $F_DATA
+                    -r --rank       Search by rank
+                    -t --recent     Search by recency
+                    -h --help       Print this help
         " | string replace -r '^ {12}' ''  # remove unnecessary indent
     end
 
     set -l options "h/help" "c/clean" "o/echo" "l/list" "p/purge" "r/rank" "t/recent" \
-                   "k/pick" "w/with=" "d/cd" "a/app"
+                   "k/pick" "K/picker=" "w/with=" "d/cd" "a/app"
 
     argparse -n $F_CMD \
-       -x "a,w,o,l" -x "r,t" -x "p,c" -x "l,k" -x "l,d" \
+       -x "a,w,o,l" -x "r,t" -x "p,c" -x "l,k" -x "l,K" -x "l,d" \
        $options -- $argv
     or return
 
@@ -139,11 +140,16 @@ function __f -d "Open recent files entered on command line"
     else
         set -l target
 
-        if set -q _flag_pick
+        if set -q _flag_pick; or set -q _flag_picker
+            set -q _flag_picker; or set _flag_picker fzf
+
+            # pick command string should be tokenized first to be executed as command
+            printf '%s' $_flag_picker | read -at _flag_picker
+
             set target (
                 command awk -v t=(date +%s) -v list="list" -v typ="$typ" -v q=".*" -F "|" $f_script "$F_DATA" |
                 string replace -r '^.{11}' '' |
-                fzf
+                $_flag_picker
             )
         else
             set target (command awk -v t=(date +%s) -v typ="$typ" -v q="$q" -F "|" $f_script "$F_DATA")
