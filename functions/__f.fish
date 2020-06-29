@@ -143,7 +143,14 @@ function __f -d "Open recent files entered on command line"
         set -l target
 
         if set -q _flag_pick; or set -q _flag_picker
-            set -q _flag_picker; or set _flag_picker fzf
+
+            if not set -q _flag_picker
+                if set -q F_PICKER
+                    set _flag_picker $F_PICKER
+                else
+                    set _flag_picker fzf
+                end
+            end
 
             # pick command string should be tokenized first to be executed as command
             printf '%s' $_flag_picker | read -at _flag_picker

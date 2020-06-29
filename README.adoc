@@ -99,6 +99,10 @@ Set data file to `$HOME/.foo` instead of `$XDG_DATA_HOME/f/data`.
 List of regex patterns to use to exlude files from being added
 to `f` database.
 
+* `set -U *F_PICKER* "skim"` +
+Command to use as interactive filtering program. Must be a
+string, _not a list_.
+
 * `set -U *F_OWNER* "username"` +
 Ensure data file is owned by `username`. This prevents usage of `f`
 with `sudo` to cause file to be inaccessible in non-sudo sessions.
