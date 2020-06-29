@@ -15,6 +15,7 @@ function __f_complete -d "add completions"
     complete -c $F_CMD -s p -l purge  -d "Purge $F_DATA"
     complete -c $F_CMD -s r -l rank   -d "Search by rank and open"
     complete -c $F_CMD -s t -l recent -d "Search by recency and open"
+    complete -c $F_CMD -s x -l delete -d "Remove file from database"
     complete -c $F_CMD -s h -l help   -d "Print help"
 
 end

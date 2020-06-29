@@ -33,6 +33,7 @@ $ f --help
 
 Usage: f [-d] [-r|-t] [-w cmd|-a|-o] [regex1 regex2 ..]
        f [-d] [-r|-t] [-w cmd|-a|-o] [-K cmd] -k
+       f [-r|-t] [-K cmd] [-k] -x [regex1 regex2 ..]
        f [-r|-t] -l [regex1 regex2 ..]
        f -c|-p|-h
 
@@ -47,6 +48,7 @@ Usage: f [-d] [-r|-t] [-w cmd|-a|-o] [regex1 regex2 ..]
         -p --purge      Delete all entries from $F_DATA
         -r --rank       Search by rank
         -t --recent     Search by recency
+        -x --delete     Remove selected file from database
         -h --help       Print this help
 
 -------
@@ -60,6 +62,7 @@ Let's look at some interesting examples:
 $ f con fish  # open the best matched file that has "con" and "fish" somewhere in it's name
 $ f --recent  # open the most recently mentioned file
 $ f --pick    # Launch fzf to select a file from all files and open it
+$ f --pick --delete     # Interactlively delete an entry
 $ f --picker 'tail -n1' # Pick using alternative fuzzy filter or command
 $ f --app --pick        # Open with default app, uses xdg-open on Linux and open on OSX internally
 $ f --with less --pick  # Pick a file using fzf and view it using less

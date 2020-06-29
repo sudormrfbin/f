@@ -4,6 +4,7 @@ function __f -d "Open recent files entered on command line"
         echo "
             Usage: $F_CMD [-d] [-r|-t] [-w cmd|-a|-o] [regex1 regex2 ..]
                    $F_CMD [-d] [-r|-t] [-w cmd|-a|-o] [-K cmd] -k
+                   $F_CMD [-r|-t] [-K cmd] [-k] -x [regex1 regex2 ..]
                    $F_CMD [-r|-t] -l [regex1 regex2 ..]
                    $F_CMD -c|-p|-h
 
@@ -18,15 +19,16 @@ function __f -d "Open recent files entered on command line"
                     -p --purge      Delete all entries from $F_DATA
                     -r --rank       Search by rank
                     -t --recent     Search by recency
+                    -x --delete     Remove selected file from database
                     -h --help       Print this help
         " | string replace -r '^ {12}' ''  # remove unnecessary indent
     end
 
     set -l options "h/help" "c/clean" "o/echo" "l/list" "p/purge" "r/rank" "t/recent" \
-                   "k/pick" "K/picker=" "w/with=" "d/cd" "a/app"
+                   "x/delete" "k/pick" "K/picker=" "w/with=" "d/cd" "a/app"
 
     argparse -n $F_CMD \
-       -x "a,w,o,l" -x "r,t" -x "p,c" -x "l,k" -x "l,K" -x "l,d" \
+       -x "a,w,o,l,x" -x "r,t" -x "p,c" -x "l,k" -x "l,K" -x "l,d,x" \
        $options -- $argv
     or return
 
@@ -162,6 +164,13 @@ function __f -d "Open recent files entered on command line"
         if test -z "$target"
             echo "$argv did not match any results"
             return 1
+        end
+
+        if set -q _flag_delete
+            sed -i -e "\:^$target|.*:d" $F_DATA
+            echo "Deleted entry $target"
+            __f_complete
+            return 0
         end
 
         if set -q _flag_cd
