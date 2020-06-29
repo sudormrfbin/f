@@ -59,8 +59,8 @@ Let's look at some interesting examples:
 
 [source,fish]
 ------
-$ f con fish  # open the best matched file that has "con" and "fish" somewhere in it's name
-$ f --recent  # open the most recently mentioned file
+$ f con fish  # Open the best matched file that has "con" and "fish" somewhere in it's name
+$ f --recent  # Open the most recently mentioned file
 $ f --pick    # Launch fzf to select a file from all files and open it
 $ f --pick --delete     # Interactlively delete an entry
 $ f --picker 'tail -n1' # Pick using alternative fuzzy filter or command
