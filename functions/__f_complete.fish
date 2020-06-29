@@ -1,8 +1,10 @@
 function __f_complete -d "add completions"
     # string replace is faster than cut (on test with sample file)
-    set -l __f_marks (string replace -r '\|.*' '' < $F_DATA | string escape)
+    function __f_marks
+        printf "%s\n" (string replace -r '\|.*' '' < $F_DATA)
+    end
 
-    complete -fc $F_CMD -a "$__f_marks"
+    complete -fc $F_CMD -a "(__f_marks)"
 
     complete -c $F_CMD -s k -l pick   -d "Pick a file using fzf"
     complete -c $F_CMD -s K -l picker -d "Set picker program" -xa '(__fish_complete_command)'
