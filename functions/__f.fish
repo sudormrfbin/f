@@ -2,8 +2,7 @@ function __f -d "Open recent files entered on command line"
 
     function __print_help
         echo "
-            Usage: $F_CMD [-d] [-r|-t] [-w cmd|-a|-o] [regex] ...
-                   $F_CMD [-d] [-r|-t] [-w cmd|-a|-o] [-K cmd] -k
+            Usage: $F_CMD [-d] [-r|-t] [-w cmd|-a|-o] [-K cmd] [-k] [regex] ...
                    $F_CMD [-r|-t] [-K cmd] [-k] -x [regex] ...
                    $F_CMD [-r|-t] -l [regex] ...
                    $F_CMD -c|-p|-h
@@ -148,7 +147,7 @@ function __f -d "Open recent files entered on command line"
                 if set -q F_PICKER
                     set _flag_picker $F_PICKER
                 else
-                    set _flag_picker fzf
+                    set _flag_picker "fzf --query '$argv'"
                 end
             end
 
