@@ -1,4 +1,4 @@
-= F
+= F image:https://img.shields.io/github/v/release/gokulsoumya/f?label=&style=flat-square[link="https://github.com/gokulsoumya/f/releases/latest"] image:https://img.shields.io/github/license/gokulsoumya/f?style=flat-square[link="LICENSE"]
 :experimental:
 
 `f` lets you open files whose names you typed in the commandline some time before.
