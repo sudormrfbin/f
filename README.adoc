@@ -1,4 +1,5 @@
 = F image:https://img.shields.io/github/v/release/gokulsoumya/f?label=&style=flat-square[link="https://github.com/gokulsoumya/f/releases/latest"] image:https://img.shields.io/github/license/gokulsoumya/f?style=flat-square[link="LICENSE"]
+:toc: macro
 :experimental:
 
 `f` lets you open files whose names you typed in the commandline some time before.
@@ -11,6 +12,8 @@ fairly similar, but with some added niceties.
 Most of the `f` source code has been modified from https://github.com/jethrokuan[jethrokuan's]
 https://github.com/jethrokuan/z[z] port from bash to pure fish. Many, many thanks to him and
 the original author of `z`, https://github.com/rupa[rupa].
+
+toc::[]
 
 == Installation
 
