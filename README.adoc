@@ -70,6 +70,10 @@ $ f --with rm --pick    # Filenames are simply passed as arguments to the --with
 $ f --cd --with 'ls -l' --pick  # Pick a file using fzf, cd to it's parent directory and run ls -l on the file
 ------
 
+NOTE: When using `--picker` or if <<Configuration,`F_PICKER`>> is set, the arguments
+      to `f` are discarded (the flags are still used). When using the default `fzf`
+      picker, the arguments are used as a query to start `fzf` with.
+
 === Keybindings
 
 The whole reason I wrote this plugin was for this one feature -- insert filenames
