@@ -175,7 +175,6 @@ function __f -d "Open recent files entered on command line"
         if set -q _flag_delete
             sed -i -e "\:^$target|.*:d" $F_DATA
             echo "Deleted entry $target"
-            __f_complete
             return 0
         end
 

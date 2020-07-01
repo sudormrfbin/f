@@ -9,6 +9,4 @@ function __f_clean -d "Remove invalid files from data file"
 
     command mv -f $tmpfile $F_DATA
   end
-
-  __f_complete
 end

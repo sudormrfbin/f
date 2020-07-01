@@ -52,6 +52,4 @@ function __f_add -d "Add given path to f file"
     command mv $tmpfile $F_DATA
     or command rm $tmpfile
   end
-
-  __f_complete
 end
