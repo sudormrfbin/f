@@ -1,6 +1,6 @@
 function __f_add -d "Add given path to f file"
 
-    if test (count "$argv") -gt 1
+    if test (count $argv) -gt 1
         echo 'Can only take one argument; more given' > /dev/stderr
         return 1
     end
