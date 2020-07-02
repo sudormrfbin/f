@@ -55,7 +55,7 @@ Usage: f [-d] [-r|-t] [-w cmd|-a|-o] [-K cmd] [-k] [query] ...
 
 -------
 
-=== Notable flags
+=== Notable flags and examples
 
 Let's look at some interesting examples:
 
@@ -77,12 +77,20 @@ NOTE: When using `--picker` or if <<Configuration,`F_PICKER`>> is set, the argum
       to `f` are discarded (the flags are still used). When using the default `fzf`
       picker, the arguments are used as a query to start `fzf` with.
 
+[[multiple-files]]Multiple files can be selected using the picker program;
+they should be printed to stdout with one file per line. With the default
+`fzf` picker, kbd:[Tab] can be used to select multiple files.
+
+TIP: Use `f --pick --delete` to interactively delete [multiple] files from the database.
+
 === Keybindings
 
 The whole reason I wrote this plugin was for this one feature -- insert filenames
 into the command line without hitting tab a thousand times or doing a token search
 with part of the filename. You can do this using the kbd:[Alt+K] keybinding.
 This opens fzf and the filename you choose will be inserted into the commandline.
+
+TIP: You can select and insert <<multiple-files,multiple files>> using the picker.
 
 If kbd:[Alt+K] is already bound to something, it will not be overridden. Instead
 you can bind `__f_insert_from_picker` to any key you wish:
