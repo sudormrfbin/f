@@ -18,6 +18,10 @@ if test -z "$F_CMD"
     set -U F_CMD "f"
 end
 
+if not set -q F_EXCLUDE
+    set -U F_EXCLUDE '^/tmp/.+'
+end
+
 function $F_CMD -d "jump around"
     __f $argv
 end
