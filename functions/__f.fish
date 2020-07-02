@@ -139,7 +139,7 @@ function __f -d "Open recent files entered on command line"
         # which cannot be captured from a subcommand.
         command awk -v t=(date +%s) -v list="list" -v typ="$typ" -v q="$q" -F "|" $f_script "$F_DATA"
     else
-        set -l target
+        set -l targets
 
         if set -q _flag_pick; or set -q _flag_picker
 
@@ -147,50 +147,54 @@ function __f -d "Open recent files entered on command line"
                 if set -q F_PICKER
                     set _flag_picker $F_PICKER
                 else
-                    set _flag_picker "fzf --query '$argv'"
+                    set _flag_picker "fzf --multi --query '$argv'"
                 end
             end
 
             # pick command string should be tokenized first to be executed as command
             printf '%s' $_flag_picker | read -at _flag_picker
 
-            set target (
+            set targets (
                 command awk -v t=(date +%s) -v list="list" -v typ="$typ" -v q=".*" -F "|" $f_script "$F_DATA" |
                 string replace -r '^.{11}' '' |
                 $_flag_picker
             )
         else
-            set target (command awk -v t=(date +%s) -v typ="$typ" -v q="$q" -F "|" $f_script "$F_DATA")
+            set targets (command awk -v t=(date +%s) -v typ="$typ" -v q="$q" -F "|" $f_script "$F_DATA")
         end
 
         if test "$status" -gt 0
             return
         end
 
-        if test -z "$target"
+        if test -z "$targets"
             echo "$argv did not match any results"
             return 1
         end
 
         if set -q _flag_delete
-            sed -i -e "\:^$target|.*:d" $F_DATA
-            echo "Deleted entry $target"
+            for target in $targets
+                sed -i -e "\:^$target|.*:d" $F_DATA
+                echo "Deleted entry $target"
+            end
             return 0
         end
 
         if set -q _flag_cd
-            # cd into directory of file
-            pushd (string split -rm 1 '/' $target)[1] 2> /dev/null
+            # cd into directory of [first] file
+            pushd (string split -rm 1 '/' $targets[1])[1] 2> /dev/null
             if test $status -gt 0
-                echo "Parent directory of $target does not exist"
+                echo "Parent directory of $targets[1] does not exist"
                 return 1
             end
         end
 
-        __f_add $target
+        for target in $targets
+            __f_add $target
+        end
 
         if set -q _flag_echo
-            printf "%s\n" "$target"
+            printf "%s\n" $targets
             return 0
         else
             set -l opencmd
@@ -212,8 +216,8 @@ function __f -d "Open recent files entered on command line"
                 return 1
             end
 
-            # `$opencmd $target` won't work if $opencmd is quoted; use source instead
-            printf '%s ' $opencmd (string escape $target) | source
+            # `$opencmd $targets` won't work if $opencmd is quoted; use source instead
+            printf '%s ' $opencmd (string escape $targets) | source
         end
     end
 end
