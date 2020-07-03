@@ -36,11 +36,11 @@ function __f -d "Open recent files entered on command line"
         return 0
     else if set -q _flag_clean
         __f_clean
-        echo "$F_DATA cleaned!" 
+        echo "'$F_DATA' cleaned!" 
         return 0
     else if set -q _flag_purge
         echo > $F_DATA
-        echo "$F_DATA purged!" 
+        echo "'$F_DATA' purged!" 
         return 0
     end
 
@@ -168,14 +168,14 @@ function __f -d "Open recent files entered on command line"
         end
 
         if test -z "$targets"
-            echo "$argv did not match any results"
+            echo "'$argv' did not match any results"
             return 1
         end
 
         if set -q _flag_delete
             for target in $targets
                 sed -i -e "\:^$target|.*:d" $F_DATA
-                echo "Deleted entry $target"
+                echo "Deleted entry '$target'"
             end
             return 0
         end
@@ -184,7 +184,7 @@ function __f -d "Open recent files entered on command line"
             # cd into directory of [first] file
             pushd (string split -rm 1 '/' $targets[1])[1] 2> /dev/null
             if test $status -gt 0
-                echo "Parent directory of $targets[1] does not exist"
+                echo "Parent directory of '$targets[1]' does not exist"
                 return 1
             end
         end
