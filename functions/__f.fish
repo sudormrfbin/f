@@ -196,28 +196,28 @@ function __f -d "Open recent files entered on command line"
         if set -q _flag_echo
             printf "%s\n" $targets
             return 0
-        else
-            set -l opencmd
-
-            if set -q _flag_with
-                set opencmd $_flag_with
-            else if set -q _flag_app
-                if test (uname) = Darwin
-                    set opencmd open
-                else
-                    set opencmd xdg-open
-                end
-            else if set -q VISUAL
-                set opencmd $VISUAL
-            else if set -q EDITOR
-                set opencmd $EDITOR
-            else
-                echo "\$EDITOR not set; cannot open file" > /dev/stderr
-                return 1
-            end
-
-            # `$opencmd $targets` won't work if $opencmd is quoted; use source instead
-            printf '%s ' $opencmd (string escape $targets) | source
         end
+
+        set -l opencmd
+
+        if set -q _flag_with
+            set opencmd $_flag_with
+        else if set -q _flag_app
+            if test (uname) = Darwin
+                set opencmd open
+            else
+                set opencmd xdg-open
+            end
+        else if set -q VISUAL
+            set opencmd $VISUAL
+        else if set -q EDITOR
+            set opencmd $EDITOR
+        else
+            echo "\$EDITOR not set; cannot open file" > /dev/stderr
+            return 1
+        end
+
+        # `$opencmd $targets` won't work if $opencmd is quoted; use source instead
+        printf '%s ' $opencmd (string escape $targets) | source
     end
 end
