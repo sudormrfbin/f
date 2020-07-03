@@ -115,7 +115,7 @@ List of regex patterns to use to exlude files from being added
 to `f` database.
 
 NOTE: If not set by the user, `F_EXCLUDE` is set to a list with
-      `^/tmp/.+` as the only item.
+      `"^/tmp/.+"` as the only item.
 
 * `set -U *F_PICKER* "skim"` +
 Command to use as interactive filtering program. Must be a
