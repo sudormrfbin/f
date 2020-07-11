@@ -22,7 +22,7 @@ if not set -q F_EXCLUDE
     set -U F_EXCLUDE '^/tmp/.+'
 end
 
-function $F_CMD -d "jump around"
+function $F_CMD -d "Open files fuzzily"
     __f $argv
 end
 
