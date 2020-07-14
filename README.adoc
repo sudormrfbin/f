@@ -11,7 +11,7 @@ ifdef::env-github[]
 endif::[]
 
 `f` lets you open files whose names you typed in the commandline some time before.
-If the filename wasn't quoted, then it will be recognized and stored by `f`, which
+The filenames will be recognized and stored by `f`, which
 you can then use in the future. It's like the famous https://www.github.com/rupa/z[rupa/z]
 plugin and uses the frecency concept, but for files. Similar to it, `f` also needs
 some time to learn the files you access the most and build a database. Usage is
