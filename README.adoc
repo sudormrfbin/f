@@ -31,7 +31,7 @@ that there is some compatibility issue. Please open an issue if you have trouble
 
 Recommended installation is through https://github.com/jorgebucaran/fisher[fisher]:
 
- fisher add gokulsoumya/f
+ fisher install gokulsoumya/f
 
 It is recommended to install https://github.com/junegunn/fzf[`fzf`] or any other fuzzy filter
 of your choice which can be used to fuzzily open (multiple) files, delete entries from the database, etc.
